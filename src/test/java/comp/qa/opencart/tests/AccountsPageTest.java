@@ -11,37 +11,30 @@ import comp.qa.opencart.utils.Constants;
 
 public class AccountsPageTest extends BaseTest {
 
-//Specific to accountpage beforeclass	
+//Specific to accountpage before class	
 	@BeforeClass
 	public void accountPageSetup() {
-		accountPage = loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
+		accountPage =loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
 	}
 	
-	@Test(priority=1)
-	public void accountspageTitleTest() {
+	@Test
+	public void getTitle() {
 		String title= accountPage.getAccountPageTitle();
 		System.out.println(title);
-		Assert.assertEquals(title, "My Account"); //thses values are constant value (Constants.ACCOUNT_PAGE_TITLE)
+		Assert.assertEquals(title, Constants.ACCOUNT_PAGE_TITLE);
 	}
 	
-	@Test(priority=2)
-	public void verifyPageHeaderTest() {
-		String header= accountPage.getHeaderValue();
-		System.out.println(header);
-		Assert.assertEquals(header,Constants.ACCOUNT_PAGE_HEADER );  //Constant value
+	public void listSize() {
+		int size =accountPage.getAccountSectionsSizeCount();
+		System.out.println(size);
+		Assert.assertTrue(size>0);
 	}
 	
 	
-	@Test(priority=4)
-	public void count() {
-	Assert.assertTrue(accountPage.getAccountSectionsCount()== 4);
-	System.out.println(accountPage.getAccountSectionsCount());
-	}
-	
-	@Test(priority=3)
 	public void SectionList() {
-	List<String> accSectionList=accountPage.getAccountSectionsList();
-	System.out.println(accSectionList);
+		List<String> list= accountPage.getAccountSectionsList();
+		System.out.println(list);
+//		Assert.assertEquals(0, 0);
+	}
 }
 	
-}

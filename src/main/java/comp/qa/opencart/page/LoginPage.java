@@ -5,23 +5,23 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
 
-//1.	In every page class remember we need to maintain by locators/Obeject repository
+//1.In every page class remember we need to maintain by-locators/Object repository
 	
 	private WebDriver driver;
 	
-	private By username = By.id("input-email");
-	private By Password = By.id("input-password");
-	private By loginButton	= By.xpath("//input[@value= 'Login']");
+	private By username = By.id("username");
+	private By Password = By.id("password");
+	private By loginButton	= By.xpath("//button[contains(text(), 'Sign in')]");
 	
-	private By forgotpwd = By.xpath("//div[@class='form-group']//a[text()='Forgotten Password']");
+	private By forgotpwd = By.xpath("//a[contains(@href, 'forgot-password')]");
 	
 	
-//2. 	Constructor of the class
+//2. Constructor of the class
 	public LoginPage (WebDriver driver) {
 		this.driver = driver;
 	}
 	
-//3. 	Page Method/action (title)
+//3. Page Method/action (title)
 	public String getLoginPageTitle() {
 		return driver.getTitle();
 	}
@@ -30,13 +30,13 @@ public class LoginPage {
 			return driver.findElement(forgotpwd).isDisplayed();
 		}
 //4.	Login
-		public AccountsPage doLogin(String un, String pwd) {
+		public AccountPage doLogin(String un, String pwd) {
 			driver.findElement(username).sendKeys(un);
 			driver.findElement(Password).sendKeys(pwd);
 			driver.findElement(loginButton).click();
 		
-//	This return is responsible to go the the next page below is the new obj in accpage there is a refernce		
-			return new AccountsPage(driver);	
+//	This return is responsible to go the the next page,	
+			return new AccountPage(driver);	
 		}
 	
 }
