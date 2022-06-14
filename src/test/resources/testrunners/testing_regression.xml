@@ -11,9 +11,9 @@ thread-count="3" parallel="tests" verbose="3">
 		</classes>
 	</test>
 
-	<test name="Accounts page Test">
+	<test name="Guest User">
 		<classes>
-			<class name="comp.qa.opencart.tests.AccountsPageTest" />
+			<class name="comp.qa.opencart.tests.AccountPageAsGuestUserTest" />
 		</classes>
 	</test>
 

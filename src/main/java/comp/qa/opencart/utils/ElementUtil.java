@@ -23,18 +23,18 @@ import comp.qa.opencart.factory.DriverFactory;
 		private JavaScriptUtil jsUtil;
 		
 //What to we need to pass the driver?	
-//When someone will create the object of the ElementUtil class that time someone needs to pass it to class driver
+//When someone will create the object of the ElementUtil class that time they needs to pass it to class driver
 		
 		public ElementUtil(WebDriver driver) {
 			this.driver = driver;
-			jsUtil = new JavaScriptUtil(this.driver);
+			jsUtil = new JavaScriptUtil(this.driver= driver);
 		}
 
 		public WebElement getElement(By locator) {
 		 	WebElement element = driver.findElement(locator);
-			if(DriverFactory.highlight.equals("true")) {
-				jsUtil.flash(element);
-			}
+//			if(DriverFactory.highlight.equals("true")) {
+//				jsUtil.flash(element);
+//			}
 			return element;
 		}
 		

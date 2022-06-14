@@ -29,8 +29,8 @@ public class BaseTest {
 //		selected first because first we have to see which browser is written(chrome).		
 		df = new DriverFactory();
 		prop = df.init_prop();		
-		String browserName = prop.getProperty("browser");
-		driver= df.init_Driver(browserName);
+//		String browserName = prop.getProperty("browser"); now this is done by driver factory.
+		driver= df.init_Driver(prop);
 	
 //		driver.get(prop.getProperty("url"));
 		driver.get(prop.getProperty("GuestUrl"));

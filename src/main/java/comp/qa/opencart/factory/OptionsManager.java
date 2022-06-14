@@ -18,8 +18,8 @@ public class OptionsManager {
 	}
 	
 	public ChromeOptions getChromeOptions() {
-//		LOGGER.info("getting Chrome Options");
 		co = new ChromeOptions();
+//		If there is no else we can write in single line without {  }
 		if(Boolean.parseBoolean(prop.getProperty("headless").trim())) co.addArguments("--headless");
 		if(Boolean.parseBoolean(prop.getProperty("incognito").trim())) co.addArguments("--incognito");
 		return co;

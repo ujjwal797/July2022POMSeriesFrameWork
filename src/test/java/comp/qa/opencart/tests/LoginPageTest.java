@@ -23,8 +23,10 @@ public class LoginPageTest extends BaseTest {
 	
 	@Test
 	public void loginTest() throws InterruptedException {
-	loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
-//	Its a incomplete method because assertion is missing, so we are asserting to check whthr its going to nxt page.
+//	1.refer the method by Acc page.	
+	accountPage= loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
+	
+//	2.we are asserting to check whthr its going to nxt page.
 //	Assert.assertEquals(accountPage.getAccountPageTitle(), Constants.ACCOUNT_PAGE_TITLE);
 	}
 }

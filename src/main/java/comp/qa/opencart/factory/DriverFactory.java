@@ -1,52 +1,58 @@
 package comp.qa.opencart.factory;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverFactory {
 
-	WebDriver driver;
+//	WebDriver driver;		//after introducing Thread-local driver is not used.
 	Properties prop;
-	public static String highlight;
+//	public static String highlight;   //not using
+//	OptionsManager optionManger;	  //not using
 	
-	public WebDriver init_Driver(String BrowserName) {
+	public static ThreadLocal<WebDriver> tlDriver= new ThreadLocal<>();
 	
-//		String Browser= prop.getProperty("browser");
-//		highlight = prop.getProperty("highlight");
+	
+	public WebDriver init_Driver(Properties prop) {
+//	public WebDriver init_Driver(String BrowserName) {
+	
+		String BrowserName= prop.getProperty("browser");
+//		highlight = prop.getProperty("highlight"); 	//not using
+//		optionManger= new OptionsManager(prop); 	//not using
+		
 		
 		if (BrowserName.equals("Safari")) {
-			driver = new SafariDriver();
+//			driver = new SafariDriver();
+			tlDriver.set(new SafariDriver());
 		}	
 		else if (BrowserName.equals("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+//			driver = new ChromeDriver(); // not using
+//			driver = new ChromeDriver(optionManger.getChromeOptions());   //option class used
+//			tlDriver.set(new ChromeDriver(optionManger.getChromeOptions()));//option class+ thread local
 		}
+		
 		else {
 			System.out.println("pass the right browser");
 		}
-		driver.manage().deleteAllCookies();
-		driver.manage().window().maximize();
+		getTlDriver().manage().deleteAllCookies();
+		getTlDriver().manage().window().maximize();
 		
-		return driver;
+		return getTlDriver();
 	}
 	
-	/**
-	 * initialize the properties from config file
-	 * @return
-	 */
+//	Static because can call without creating obj
+	public static synchronized WebDriver getTlDriver(){
+		return tlDriver.get();
+	}
 
 	public Properties init_prop() { //these are our environment variable
 	prop =new Properties(); //properties responsible to read values from config.properties
@@ -65,9 +71,9 @@ public class DriverFactory {
 		 return prop;
 	}
 
-	/**
-	 * take sceenshot Ashot
-	 */
+	
+	
+	
 //	public String getScreenshot() {
 //		String src = ((TakesScreenshot) init_Driver(prop)).getScreenshotAs(OutputType.BASE64);
 //		File srcFile = new File(src);
